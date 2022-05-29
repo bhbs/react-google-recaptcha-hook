@@ -40,8 +40,8 @@
     "prepare": "husky install"
   },
   "peerDependencies": {
-    "react": "^18",
-    "react-dom": "^18"
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",

@@ -1,6 +1,3 @@
-> **Warning**
-> Use https://github.com/t49tran/react-google-recaptcha-v3 if your React version is under 18.
-
 # React Hook for Google reCAPTCHA V3
 
 https://www.google.com/recaptcha/intro/v3.html
