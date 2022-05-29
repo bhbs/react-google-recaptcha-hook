@@ -35,7 +35,9 @@ export const initGrecaptcha = () => {
 export const getGrecaptcha = () =>
   new Promise<ReCaptcha>((resolve) => {
     initGrecaptcha();
-    window.grecaptcha.ready(() => resolve(window.grecaptcha));
+    window.grecaptcha.ready(() =>
+      resolve(window.grecaptcha.enterprise || window.grecaptcha)
+    );
   });
 
 export const generateGrecaptchaSrc = (

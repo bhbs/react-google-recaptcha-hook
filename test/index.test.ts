@@ -10,7 +10,7 @@ import {
 } from "../src/index";
 
 describe("initGrecaptcha", () => {
-  test("should be defined", () => {
+  test("create callback queue", () => {
     initGrecaptcha();
     expect(window.grecaptcha).toMatchInlineSnapshot(`
       {
@@ -26,7 +26,7 @@ describe("initGrecaptcha", () => {
 });
 
 describe("getGrecaptcha", () => {
-  test("should be defined", () => {
+  test("add callback to queue", () => {
     getGrecaptcha();
     expect(window.grecaptcha).toMatchInlineSnapshot(`
       {
@@ -41,10 +41,26 @@ describe("getGrecaptcha", () => {
       }
     `);
   });
+
+  test("return enterprise version", async () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    expect(await getGrecaptcha()).toMatchInlineSnapshot(`
+      {
+        "execute": [Function],
+        "ready": [Function],
+      }
+    `);
+  });
 });
 
-describe("generateGRecaptchaSrc", () => {
-  test("should be defined", () => {
+describe("generateGrecaptchaSrc", () => {
+  test("cerate src", () => {
     expect(generateGrecaptchaSrc("SITE_KEY")).toMatchInlineSnapshot(
       '"https://www.google.com/recaptcha/api.js?render=SITE_KEY"'
     );
