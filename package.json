@@ -35,6 +35,8 @@
     "build": "tsc && vite build",
     "test": "vitest",
     "coverage": "vitest run --coverage",
+    "lint:prettier": "prettier . --check --ignore-path .gitignore",
+    "fix:prettier": "prettier . --write --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "peerDependencies": {
