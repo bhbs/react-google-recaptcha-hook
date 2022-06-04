@@ -12,16 +12,25 @@ export const initGrecaptcha = () => {
       ready: (callback) => {
         window.___grecaptcha_cfg.fns.push(callback);
       },
+      enterprise: {
+        ready: (callback) => {
+          window.___grecaptcha_cfg.fns.push(callback);
+        },
+      },
     };
   }
 };
 
-export const getGrecaptcha = () =>
+export const getGrecaptcha = (enterprise?: boolean) =>
   new Promise<ReCaptcha>((resolve) => {
     initGrecaptcha();
-    window.grecaptcha.ready(() =>
-      resolve(window.grecaptcha.enterprise || window.grecaptcha)
-    );
+    if (enterprise) {
+      window.grecaptcha.enterprise.ready(() =>
+        resolve(window.grecaptcha.enterprise)
+      );
+    } else {
+      window.grecaptcha.ready(() => resolve(window.grecaptcha));
+    }
   });
 
 export const generateGrecaptchaSrc = (

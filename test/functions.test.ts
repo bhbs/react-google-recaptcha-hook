@@ -12,6 +12,9 @@ describe("initGrecaptcha", () => {
     initGrecaptcha();
     expect(window.grecaptcha).toMatchInlineSnapshot(`
       {
+        "enterprise": {
+          "ready": [Function],
+        },
         "ready": [Function],
       }
     `);
@@ -28,6 +31,9 @@ describe("getGrecaptcha", () => {
     getGrecaptcha();
     expect(window.grecaptcha).toMatchInlineSnapshot(`
       {
+        "enterprise": {
+          "ready": [Function],
+        },
         "ready": [Function],
       }
     `);
@@ -50,7 +56,10 @@ describe("getGrecaptcha", () => {
     };
     expect(await getGrecaptcha()).toMatchInlineSnapshot(`
       {
-        "execute": [Function],
+        "enterprise": {
+          "execute": [Function],
+          "ready": [Function],
+        },
         "ready": [Function],
       }
     `);

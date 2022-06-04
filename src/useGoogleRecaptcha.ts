@@ -4,7 +4,7 @@ import { generateGrecaptchaSrc, getGrecaptcha } from "./functions";
 declare global {
   interface Window {
     grecaptcha: ReCaptcha & {
-      enterprise?: ReCaptcha;
+      enterprise: ReCaptcha;
     };
     ___grecaptcha_cfg: {
       fns: (() => void)[];
@@ -38,7 +38,7 @@ export const useGoogleReCaptcha = (
   }, []);
 
   const executeGoogleReCaptcha = useCallback(async (action: string) => {
-    const grecaptcha = await getGrecaptcha();
+    const grecaptcha = await getGrecaptcha(options?.enterprise);
     return grecaptcha.execute?.(siteKey, { action });
   }, []);
 
