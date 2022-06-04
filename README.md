@@ -8,26 +8,21 @@ https://www.google.com/recaptcha/intro/v3.html
 npm install react-google-recaptcha-hook
 ```
 
-## Example
+## Simeplest Example
 
 ```javascript
 import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
 
-const YourComponent = () => {
-  const { executeGoogleReCaptcha } = useGoogleReCaptcha("ABCDEFG123456");
+const Form = () => {
+  const { executeGoogleReCaptcha } = useGoogleReCaptcha(SITE_KEY);
 
-  const postComment = useCallback(async () => {
-    const token = await executeRecaptcha("postComment");
-    fetch("/api/echo", {
-      method: "POST",
-      body: JSON.stringify({
-        comment: "hello",
-        token,
-      }),
-    });
+  const submit = useCallback(async () => {
+    const token = await executeRecaptcha("submit");
+
+    // Do whatever you want with the token
   }, []);
 
-  return <button onClick={postComment}>POST</button>;
+  return <button onClick={submit}>SUBMIT</button>;
 };
 ```
 
