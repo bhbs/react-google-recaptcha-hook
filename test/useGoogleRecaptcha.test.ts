@@ -15,7 +15,9 @@ describe("useGoogleReCaptcha", () => {
     expect(result.current).toMatchInlineSnapshot(`
       {
         "executeGoogleReCaptcha": [Function],
+        "hide": [Function],
         "load": [Function],
+        "show": [Function],
       }
     `);
   });
@@ -61,5 +63,67 @@ describe("useGoogleReCaptcha", () => {
   test("load once", () => {
     renderHook(() => useGoogleReCaptcha("SITE_KEY"));
     renderHook(() => useGoogleReCaptcha("SITE_KEY"));
+  });
+
+  test("hide", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: true }));
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('"hidden"');
+  });
+
+  test("hide", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
+    result.current.hide();
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('"hidden"');
+  });
+
+  test("show", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: false }));
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('""');
+  });
+
+  test("show", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
+    result.current.show();
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('"visible"');
   });
 });

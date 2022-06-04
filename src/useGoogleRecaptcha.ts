@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
-import { generateGrecaptchaSrc, getGrecaptcha } from "./functions";
+import {
+  generateGrecaptchaSrc,
+  getGrecaptcha,
+  hideGrecaptcha,
+  showGrecaptcha,
+} from "./functions";
 
 declare global {
   interface Window {
@@ -20,6 +25,7 @@ export type ReCaptcha = {
 export const useGoogleReCaptcha = (
   siteKey: string,
   options?: {
+    hide?: boolean;
     language?: string;
     enterprise?: boolean;
     recaptchaNet?: boolean;
@@ -37,6 +43,9 @@ export const useGoogleReCaptcha = (
     document.getElementsByTagName("head")[0].appendChild(script);
   }, []);
 
+  const hide = useCallback(hideGrecaptcha, []);
+  const show = useCallback(showGrecaptcha, []);
+
   const executeGoogleReCaptcha = useCallback(async (action: string) => {
     const grecaptcha = await getGrecaptcha(options?.enterprise);
     return grecaptcha.execute?.(siteKey, { action });
@@ -47,8 +56,9 @@ export const useGoogleReCaptcha = (
     if (oneTimeRef.current) return;
     oneTimeRef.current = true;
 
+    options?.hide && hide();
     load();
-  }, [load]);
+  }, [load, hide, options]);
 
-  return { executeGoogleReCaptcha, load };
+  return { executeGoogleReCaptcha, load, hide, show };
 };

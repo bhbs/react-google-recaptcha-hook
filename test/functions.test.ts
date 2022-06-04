@@ -1,10 +1,12 @@
 // @vitest-environment happy-dom
 
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, afterEach } from "vitest";
 import {
   generateGrecaptchaSrc,
   getGrecaptcha,
+  hideGrecaptcha,
   initGrecaptcha,
+  showGrecaptcha,
 } from "../src/functions";
 
 describe("initGrecaptcha", () => {
@@ -63,6 +65,48 @@ describe("getGrecaptcha", () => {
         "ready": [Function],
       }
     `);
+  });
+});
+
+describe("hideGrecaptcha", () => {
+  afterEach(() => {
+    document.getElementsByTagName("head")[0].innerHTML = "";
+  });
+
+  test("exec", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    hideGrecaptcha();
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('"hidden"');
+  });
+});
+
+describe("showGrecaptcha", () => {
+  afterEach(() => {
+    document.getElementsByTagName("head")[0].innerHTML = "";
+  });
+
+  test("exec", () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+        execute: () => undefined,
+      },
+    };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    showGrecaptcha();
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+    ).toMatchInlineSnapshot('"visible"');
   });
 });
 
