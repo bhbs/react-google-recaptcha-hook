@@ -9,6 +9,16 @@ const SITE_TEST_KEY_ENTERPRISE = "6LeQ2EIgAAAAAJzkjkU459gy0Lxrw1M1qYL43s_I";
 export default {
   title: "reCAPTCHA",
   component: ReCaptcha,
+  decorators: [
+    (Story) => {
+      document.getElementById(SITE_TEST_KEY)?.remove();
+      document.getElementById(SITE_TEST_KEY_ENTERPRISE)?.remove();
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.remove();
+      delete window.grecaptcha;
+      delete window.___grecaptcha_cfg;
+      return <Story />;
+    },
+  ],
 } as ComponentMeta<typeof ReCaptcha>;
 
 const Template: ComponentStory<typeof ReCaptcha> = ({
