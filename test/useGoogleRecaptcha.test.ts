@@ -5,8 +5,12 @@ import { cleanup, renderHook } from "@testing-library/react";
 import { useGoogleReCaptcha } from "../src/useGoogleRecaptcha";
 
 describe("useGoogleReCaptcha", () => {
-  afterEach(cleanup);
   afterEach(() => {
+    cleanup();
+  });
+  afterEach(() => {
+    delete window.grecaptcha;
+    delete window.___grecaptcha_cfg;
     document.getElementsByTagName("head")[0].innerHTML = "";
   });
 
@@ -30,6 +34,15 @@ describe("useGoogleReCaptcha", () => {
 
   test("execute", async () => {
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
+    expect(
+      result.current.executeGoogleReCaptcha("action")
+    ).toMatchInlineSnapshot("Promise {}");
+  });
+
+  test("execute enterprise", async () => {
+    const { result } = renderHook(() =>
+      useGoogleReCaptcha("SITE_KEY", { enterprise: true })
+    );
     expect(
       result.current.executeGoogleReCaptcha("action")
     ).toMatchInlineSnapshot("Promise {}");
@@ -69,7 +82,6 @@ describe("useGoogleReCaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
@@ -84,7 +96,6 @@ describe("useGoogleReCaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
@@ -100,7 +111,6 @@ describe("useGoogleReCaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
@@ -115,7 +125,6 @@ describe("useGoogleReCaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';

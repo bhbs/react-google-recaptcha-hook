@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 
-import { describe, test, expect, afterEach } from "vitest";
+import { describe, test, expect, afterEach, beforeEach } from "vitest";
 import {
   generateGrecaptchaSrc,
   getGrecaptcha,
@@ -29,6 +29,12 @@ describe("initGrecaptcha", () => {
 });
 
 describe("getGrecaptcha", () => {
+  beforeEach(() => {});
+  afterEach(() => {
+    delete window.grecaptcha;
+    delete window.___grecaptcha_cfg;
+  });
+
   test("add callback to queue", () => {
     getGrecaptcha();
     expect(window.grecaptcha).toMatchInlineSnapshot(`
@@ -48,20 +54,51 @@ describe("getGrecaptcha", () => {
     `);
   });
 
-  test("return enterprise version", async () => {
+  test("add callback to queue", () => {
+    getGrecaptcha(true);
+    expect(window.grecaptcha).toMatchInlineSnapshot(`
+      {
+        "enterprise": {
+          "ready": [Function],
+        },
+        "ready": [Function],
+      }
+    `);
+    expect(window.___grecaptcha_cfg).toMatchInlineSnapshot(`
+      {
+        "fns": [
+          [Function],
+        ],
+      }
+    `);
+  });
+
+  test("return grecaptcha", async () => {
     window.grecaptcha = {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     expect(await getGrecaptcha()).toMatchInlineSnapshot(`
       {
         "enterprise": {
-          "execute": [Function],
           "ready": [Function],
         },
+        "ready": [Function],
+      }
+    `);
+  });
+
+  test("return enterprise version", async () => {
+    window.grecaptcha = {
+      ready: (callback) => callback(),
+      enterprise: {
+        ready: (callback) => callback(),
+      },
+    };
+    expect(await getGrecaptcha(true)).toMatchInlineSnapshot(`
+      {
         "ready": [Function],
       }
     `);
@@ -78,7 +115,6 @@ describe("hideGrecaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
@@ -99,7 +135,6 @@ describe("showGrecaptcha", () => {
       ready: (callback) => callback(),
       enterprise: {
         ready: (callback) => callback(),
-        execute: () => undefined,
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
