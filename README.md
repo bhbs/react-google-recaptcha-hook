@@ -8,7 +8,7 @@ https://www.google.com/recaptcha/intro/v3.html
 npm install react-google-recaptcha-hook
 ```
 
-## Simeplest Example
+## Simplest Example
 
 ```javascript
 import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
@@ -30,9 +30,15 @@ const Form = () => {
 
 ```javascript
 const {
-  executeGoogleReCaptcha, // execute reCAPTCHA, return torken
-  showGoogleReCaptcha, // show recaptcha-badge
-  hideGoogleReCaptcha, // hide recaptcha-badge
+  // execute reCAPTCHA with action, return torken
+  // (action: string) => Promise<string>
+  executeGoogleReCaptcha,
+  // show recaptcha-badge
+  // () => void
+  showGoogleReCaptcha,
+  // hide recaptcha-badge
+  // () => void
+  hideGoogleReCaptcha,
 } = useGoogleReCaptcha(
   `${YOUR_SITE_KEY}`, // your site key
   {
