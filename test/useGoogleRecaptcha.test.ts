@@ -15,9 +15,8 @@ describe("useGoogleReCaptcha", () => {
     expect(result.current).toMatchInlineSnapshot(`
       {
         "executeGoogleReCaptcha": [Function],
-        "hide": [Function],
-        "load": [Function],
-        "show": [Function],
+        "hideGoogleReCaptcha": [Function],
+        "showGoogleReCaptcha": [Function],
       }
     `);
   });
@@ -90,7 +89,7 @@ describe("useGoogleReCaptcha", () => {
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
-    result.current.hide();
+    result.current.hideGoogleReCaptcha();
     expect(
       document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
     ).toMatchInlineSnapshot('"hidden"');
@@ -121,7 +120,7 @@ describe("useGoogleReCaptcha", () => {
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
-    result.current.show();
+    result.current.showGoogleReCaptcha();
     expect(
       document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
     ).toMatchInlineSnapshot('"visible"');

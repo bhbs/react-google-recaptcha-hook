@@ -43,8 +43,8 @@ export const useGoogleReCaptcha = (
     document.getElementsByTagName("head")[0].appendChild(script);
   }, []);
 
-  const hide = useCallback(hideGrecaptcha, []);
-  const show = useCallback(showGrecaptcha, []);
+  const hideGoogleReCaptcha = useCallback(hideGrecaptcha, []);
+  const showGoogleReCaptcha = useCallback(showGrecaptcha, []);
 
   const executeGoogleReCaptcha = useCallback(async (action: string) => {
     const grecaptcha = await getGrecaptcha(options?.enterprise);
@@ -56,9 +56,13 @@ export const useGoogleReCaptcha = (
     if (oneTimeRef.current) return;
     oneTimeRef.current = true;
 
-    options?.hide && hide();
+    options?.hide && hideGoogleReCaptcha();
     load();
-  }, [load, hide, options]);
+  }, [load, hideGoogleReCaptcha, options]);
 
-  return { executeGoogleReCaptcha, load, hide, show };
+  return {
+    executeGoogleReCaptcha,
+    hideGoogleReCaptcha,
+    showGoogleReCaptcha,
+  };
 };

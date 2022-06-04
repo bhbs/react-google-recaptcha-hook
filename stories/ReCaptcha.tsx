@@ -18,12 +18,13 @@ export const ReCaptcha = ({
   recaptchaNet,
   action,
 }: Props) => {
-  const { executeGoogleReCaptcha, show } = useGoogleReCaptcha(siteKey, {
-    hide,
-    language,
-    enterprise,
-    recaptchaNet,
-  });
+  const { executeGoogleReCaptcha, showGoogleReCaptcha, hideGoogleReCaptcha } =
+    useGoogleReCaptcha(siteKey, {
+      hide,
+      language,
+      enterprise,
+      recaptchaNet,
+    });
 
   const [token, setToken] = useState("");
 
@@ -36,14 +37,19 @@ export const ReCaptcha = ({
   }, []);
 
   const handleShow = useCallback(() => {
-    show();
+    showGoogleReCaptcha();
+  }, []);
+
+  const handleHide = useCallback(() => {
+    hideGoogleReCaptcha();
   }, []);
 
   return (
     <div>
       <button onClick={handleExecute}>EXECUTE</button>
       <button onClick={handleReload}>RELOAD</button>
-      {hide && <button onClick={handleShow}>SHOW</button>}
+      <button onClick={handleShow}>SHOW</button>
+      <button onClick={handleHide}>HIDE</button>
       <p>token: {token}</p>
       <p>{token && "Successfully loaded!"}</p>
     </div>
