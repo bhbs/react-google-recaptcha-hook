@@ -29,21 +29,23 @@ const Form = () => {
 ## Usage
 
 ```javascript
-import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
-
-const YourComponent = () => {
-  const { executeGoogleReCaptcha } = useGoogleReCaptcha(`${YOUR_SITE_KEY}`, {
+const {
+  executeGoogleReCaptcha, // execute reCAPTCHA, return torken
+  showGoogleReCaptcha, // show recaptcha-badge
+  hideGoogleReCaptcha, // hide recaptcha-badge
+} = useGoogleReCaptcha(
+  `${YOUR_SITE_KEY}`, // your site key
+  {
+    hide: `${BOOLEAN}`, // optional, true if you want to hide recaptcha-badge beforehand
     language: `${LANGUAGE_CODE}`, // optional, https://developers.google.com/recaptcha/docs/language
-    enterprise: `${BOOLEAN}`, // optional, true if you want use enterprise edition
-    recaptchaNet: `${BOOLEAN}`, // optional, true if you want use recaptcha.net instead of google.com
-  });
-
-  const handleReCaptchaVerify = useCallback(async () => {
-    const token = await executeRecaptcha(`${YOUR_ACTION}`);
-
-    // Do whatever you want with the token
-  }, []);
-
-  return <button onClick={handleReCaptchaVerify}>Submit</button>;
-};
+    enterprise: `${BOOLEAN}`, // optional, true if you want to use enterprise edition
+    recaptchaNet: `${BOOLEAN}`, // optional, true if you want to use recaptcha.net instead of google.com
+  }
+);
 ```
+
+## Note
+
+> You are allowed to hide the badge as long as you include the reCAPTCHA branding visibly in the user flow.
+
+See: https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
