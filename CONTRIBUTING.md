@@ -24,3 +24,13 @@ To format:
 ```sh
 npm run fix:prettier
 ```
+
+## 🚀 Release (Admin)
+
+```
+npm version $SEMVER
+```
+
+```
+git push origin $TAG
+```
