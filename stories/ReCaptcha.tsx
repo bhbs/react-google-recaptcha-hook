@@ -30,7 +30,7 @@ export const ReCaptcha = ({
 
   const handleExecute = useCallback(async () => {
     setToken(await executeGoogleReCaptcha(action));
-  }, []);
+  }, [action, executeGoogleReCaptcha]);
 
   const handleReload = useCallback(() => {
     window.location.reload();
@@ -38,11 +38,11 @@ export const ReCaptcha = ({
 
   const handleShow = useCallback(() => {
     showGoogleReCaptcha();
-  }, []);
+  }, [showGoogleReCaptcha]);
 
   const handleHide = useCallback(() => {
     hideGoogleReCaptcha();
-  }, []);
+  }, [hideGoogleReCaptcha]);
 
   return (
     <div>

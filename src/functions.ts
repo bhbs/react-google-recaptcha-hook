@@ -36,16 +36,16 @@ export const getGrecaptcha = (enterprise?: boolean) =>
 export const hideGrecaptcha = () => {
   initGrecaptcha();
   window.grecaptcha.ready(() => {
-    document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility =
-      "hidden";
+    const badge = document.querySelector<HTMLElement>(".grecaptcha-badge");
+    if (badge) badge.style.visibility = "hidden";
   });
 };
 
 export const showGrecaptcha = () => {
   initGrecaptcha();
   window.grecaptcha.ready(() => {
-    document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility =
-      "visible";
+    const badge = document.querySelector<HTMLElement>(".grecaptcha-badge");
+    if (badge) badge.style.visibility = "visible";
   });
 };
 

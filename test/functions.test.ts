@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 
-import { describe, test, expect, afterEach, beforeEach } from "vitest";
+import { describe, test, expect, afterEach } from "vitest";
 import {
   generateGrecaptchaSrc,
   getGrecaptcha,
@@ -29,7 +29,6 @@ describe("initGrecaptcha", () => {
 });
 
 describe("getGrecaptcha", () => {
-  beforeEach(() => {});
   afterEach(() => {
     delete window.grecaptcha;
     delete window.___grecaptcha_cfg;
@@ -120,7 +119,7 @@ describe("hideGrecaptcha", () => {
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     hideGrecaptcha();
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"hidden"');
   });
 });
@@ -140,7 +139,7 @@ describe("showGrecaptcha", () => {
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     showGrecaptcha();
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"visible"');
   });
 });

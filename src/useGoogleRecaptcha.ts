@@ -41,15 +41,18 @@ export const useGoogleReCaptcha = (
     script.id = siteKey;
 
     document.getElementsByTagName("head")[0].appendChild(script);
-  }, []);
+  }, [options, siteKey]);
 
   const hideGoogleReCaptcha = useCallback(hideGrecaptcha, []);
   const showGoogleReCaptcha = useCallback(showGrecaptcha, []);
 
-  const executeGoogleReCaptcha = useCallback(async (action: string) => {
-    const grecaptcha = await getGrecaptcha(options?.enterprise);
-    return grecaptcha.execute?.(siteKey, { action });
-  }, []);
+  const executeGoogleReCaptcha = useCallback(
+    async (action: string) => {
+      const grecaptcha = await getGrecaptcha(options?.enterprise);
+      return grecaptcha.execute?.(siteKey, { action });
+    },
+    [options?.enterprise, siteKey]
+  );
 
   const oneTimeRef = useRef(false);
   useEffect(() => {

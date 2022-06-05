@@ -87,7 +87,7 @@ describe("useGoogleReCaptcha", () => {
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: true }));
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"hidden"');
   });
 
@@ -102,7 +102,7 @@ describe("useGoogleReCaptcha", () => {
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
     result.current.hideGoogleReCaptcha();
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"hidden"');
   });
 
@@ -116,7 +116,7 @@ describe("useGoogleReCaptcha", () => {
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: false }));
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('""');
   });
 
@@ -131,7 +131,7 @@ describe("useGoogleReCaptcha", () => {
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
     result.current.showGoogleReCaptcha();
     expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")!.style.visibility
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"visible"');
   });
 });
