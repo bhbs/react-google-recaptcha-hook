@@ -4,34 +4,39 @@ import { ReCaptcha } from "./useGoogleRecaptcha";
  * @see https://developers.google.com/recaptcha/docs/loading#loading_recaptcha_asynchronously
  **/
 export const initGrecaptcha = () => {
-  if (typeof window.grecaptcha === "undefined") {
-    window.___grecaptcha_cfg ??= {
-      fns: [],
-    };
-    window.grecaptcha = {
-      ready: (callback) => {
-        window.___grecaptcha_cfg.fns.push(callback);
-      },
-      enterprise: {
-        ready: (callback) => {
-          window.___grecaptcha_cfg.fns.push(callback);
-        },
-      },
-    };
-  }
+  window.___grecaptcha_cfg ??= {
+    fns: [],
+  };
 };
 
 export const getGrecaptcha = (enterprise: boolean) =>
   new Promise<ReCaptcha>((resolve) => {
     initGrecaptcha();
     if (enterprise) {
-      window.grecaptcha.enterprise.ready(() =>
-        resolve(window.grecaptcha.enterprise)
-      );
+      window?.grecaptcha?.enterprise
+        ? resolve(window.grecaptcha.enterprise)
+        : window.___grecaptcha_cfg.fns.push(() =>
+            //
+            resolve(window.grecaptcha.enterprise)
+          );
     } else {
-      window.grecaptcha.ready(() => resolve(window.grecaptcha));
+      window?.grecaptcha
+        ? resolve(window.grecaptcha)
+        : window.___grecaptcha_cfg.fns.push(() =>
+            //
+            resolve(window.grecaptcha)
+          );
     }
   });
+
+export const executeGrecaptcha = async (
+  enterprise: boolean,
+  siteKey: string,
+  action: string
+) => {
+  const grecaptcha = await getGrecaptcha(enterprise);
+  return grecaptcha.execute(siteKey, { action });
+};
 
 export const hideGrecaptcha = async (enterprise: boolean) => {
   const grecaptcha = await getGrecaptcha(enterprise);

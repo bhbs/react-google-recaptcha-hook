@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
+  executeGrecaptcha,
   generateGrecaptchaSrc,
-  getGrecaptcha,
   hideGrecaptcha,
   showGrecaptcha,
 } from "./functions";
@@ -18,7 +18,7 @@ declare global {
 }
 
 export type ReCaptcha = {
-  execute?(siteKey: string, options: { action: string }): PromiseLike<string>;
+  execute(siteKey: string, options: { action: string }): PromiseLike<string>;
   ready(callback: () => void): void;
 };
 
@@ -54,10 +54,8 @@ export const useGoogleReCaptcha = (
   );
 
   const executeGoogleReCaptcha = useCallback(
-    async (action: string) => {
-      const grecaptcha = await getGrecaptcha(!!options?.enterprise);
-      return grecaptcha.execute?.(siteKey, { action });
-    },
+    (action: string) =>
+      executeGrecaptcha(!!options?.enterprise, siteKey, action),
     [options?.enterprise, siteKey]
   );
 

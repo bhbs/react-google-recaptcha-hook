@@ -4,6 +4,17 @@ import { describe, test, expect, afterEach } from "vitest";
 import { cleanup, renderHook } from "@testing-library/react";
 import { useGoogleReCaptcha } from "../src/useGoogleRecaptcha";
 
+const grecaptchaMock = {
+  execute: async (siteKey, options) =>
+    `siteKey: ${siteKey}, options: ${options}`,
+  ready: (callback) => callback(),
+  enterprise: {
+    execute: async (siteKey, options) =>
+      `siteKey: ${siteKey}, options: ${options}`,
+    ready: (callback) => callback(),
+  },
+};
+
 describe("useGoogleReCaptcha", () => {
   afterEach(() => {
     cleanup();
@@ -78,12 +89,7 @@ describe("useGoogleReCaptcha", () => {
   });
 
   test("hide", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: true }));
     await Promise.resolve();
@@ -93,12 +99,7 @@ describe("useGoogleReCaptcha", () => {
   });
 
   test("hide", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
     await result.current.hideGoogleReCaptcha();
@@ -108,12 +109,7 @@ describe("useGoogleReCaptcha", () => {
   });
 
   test("show", () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     renderHook(() => useGoogleReCaptcha("SITE_KEY", { hide: false }));
     expect(
@@ -122,14 +118,21 @@ describe("useGoogleReCaptcha", () => {
   });
 
   test("show", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
+    await result.current.showGoogleReCaptcha();
+    expect(
+      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
+    ).toMatchInlineSnapshot('"visible"');
+  });
+
+  test("show", async () => {
+    window.grecaptcha = { ...grecaptchaMock };
+    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+    const { result } = renderHook(() =>
+      useGoogleReCaptcha("SITE_KEY", { enterprise: true })
+    );
     await result.current.showGoogleReCaptcha();
     expect(
       document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility

@@ -2,6 +2,7 @@
 
 import { describe, test, expect, afterEach } from "vitest";
 import {
+  executeGrecaptcha,
   generateGrecaptchaSrc,
   getGrecaptcha,
   hideGrecaptcha,
@@ -9,17 +10,20 @@ import {
   showGrecaptcha,
 } from "../src/functions";
 
+const grecaptchaMock = {
+  execute: async (siteKey, options) =>
+    `siteKey: ${siteKey}, options: ${options}`,
+  ready: (callback) => callback(),
+  enterprise: {
+    execute: async (siteKey, options) =>
+      `siteKey: ${siteKey}, options: ${options}`,
+    ready: (callback) => callback(),
+  },
+};
+
 describe("initGrecaptcha", () => {
   test("create callback queue", () => {
     initGrecaptcha();
-    expect(window.grecaptcha).toMatchInlineSnapshot(`
-      {
-        "enterprise": {
-          "ready": [Function],
-        },
-        "ready": [Function],
-      }
-    `);
     expect(window.___grecaptcha_cfg).toMatchInlineSnapshot(`
       {
         "fns": [],
@@ -34,73 +38,77 @@ describe("getGrecaptcha", () => {
     delete window.___grecaptcha_cfg;
   });
 
-  test("add callback to queue", () => {
-    getGrecaptcha(false);
-    expect(window.grecaptcha).toMatchInlineSnapshot(`
+  test("return grecaptcha", async () => {
+    const grecaptcha = getGrecaptcha(false);
+    window.grecaptcha = { ...grecaptchaMock };
+    window.___grecaptcha_cfg.fns.forEach((fn) => fn());
+    expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "enterprise": {
+          "execute": [Function],
           "ready": [Function],
         },
+        "execute": [Function],
         "ready": [Function],
-      }
-    `);
-    expect(window.___grecaptcha_cfg).toMatchInlineSnapshot(`
-      {
-        "fns": [
-          [Function],
-        ],
-      }
-    `);
-  });
-
-  test("add callback to queue", () => {
-    getGrecaptcha(true);
-    expect(window.grecaptcha).toMatchInlineSnapshot(`
-      {
-        "enterprise": {
-          "ready": [Function],
-        },
-        "ready": [Function],
-      }
-    `);
-    expect(window.___grecaptcha_cfg).toMatchInlineSnapshot(`
-      {
-        "fns": [
-          [Function],
-        ],
       }
     `);
   });
 
   test("return grecaptcha", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     expect(await getGrecaptcha(false)).toMatchInlineSnapshot(`
       {
         "enterprise": {
+          "execute": [Function],
           "ready": [Function],
         },
+        "execute": [Function],
         "ready": [Function],
       }
     `);
   });
 
   test("return enterprise version", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
-    expect(await getGrecaptcha(true)).toMatchInlineSnapshot(`
+    const grecaptcha = getGrecaptcha(true);
+    window.grecaptcha = { ...grecaptchaMock };
+    window.___grecaptcha_cfg.fns.forEach((fn) => fn());
+    expect(await grecaptcha).toMatchInlineSnapshot(`
       {
+        "execute": [Function],
         "ready": [Function],
       }
     `);
+  });
+
+  test("return enterprise version", async () => {
+    window.grecaptcha = { ...grecaptchaMock };
+    expect(await getGrecaptcha(true)).toMatchInlineSnapshot(`
+      {
+        "execute": [Function],
+        "ready": [Function],
+      }
+    `);
+  });
+});
+
+describe("executeGrecaptcha", () => {
+  afterEach(() => {
+    delete window.grecaptcha;
+    delete window.___grecaptcha_cfg;
+  });
+
+  test("exec", async () => {
+    window.grecaptcha = { ...grecaptchaMock };
+    expect(
+      await executeGrecaptcha(false, "SITE_KEY", "action")
+    ).toMatchInlineSnapshot('"siteKey: SITE_KEY, options: [object Object]"');
+  });
+
+  test("exec", async () => {
+    window.grecaptcha = { ...grecaptchaMock };
+    expect(
+      await executeGrecaptcha(false, "SITE_KEY", "action")
+    ).toMatchInlineSnapshot('"siteKey: SITE_KEY, options: [object Object]"');
   });
 });
 
@@ -110,12 +118,7 @@ describe("hideGrecaptcha", () => {
   });
 
   test("exec", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     await hideGrecaptcha(false);
     expect(
@@ -130,12 +133,7 @@ describe("showGrecaptcha", () => {
   });
 
   test("exec", async () => {
-    window.grecaptcha = {
-      ready: (callback) => callback(),
-      enterprise: {
-        ready: (callback) => callback(),
-      },
-    };
+    window.grecaptcha = { ...grecaptchaMock };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
     await showGrecaptcha(false);
     expect(
