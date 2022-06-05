@@ -31,14 +31,12 @@ const Form = () => {
 ```javascript
 const {
   // execute reCAPTCHA with action, return torken
-  // (action: string) => Promise<string>
+  // async (action: string) => Promise<string>
   executeGoogleReCaptcha,
-  // show recaptcha-badge
-  // () => void
-  showGoogleReCaptcha,
-  // hide recaptcha-badge
-  // () => void
+  // hide / show recaptcha-badge
+  // async () => Promise<void>
   hideGoogleReCaptcha,
+  showGoogleReCaptcha,
 } = useGoogleReCaptcha(
   `${YOUR_SITE_KEY}`, // your site key
   {
