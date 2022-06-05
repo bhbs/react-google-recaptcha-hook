@@ -22,7 +22,13 @@ npm test run
 To format:
 
 ```sh
-npm run fix:prettier
+npm run lint
+```
+
+To fix:
+
+```sh
+npm run fix
 ```
 
 ## 🚀 Release (Admin)
