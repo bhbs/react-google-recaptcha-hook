@@ -35,7 +35,7 @@ describe("getGrecaptcha", () => {
   });
 
   test("add callback to queue", () => {
-    getGrecaptcha();
+    getGrecaptcha(false);
     expect(window.grecaptcha).toMatchInlineSnapshot(`
       {
         "enterprise": {
@@ -79,7 +79,7 @@ describe("getGrecaptcha", () => {
         ready: (callback) => callback(),
       },
     };
-    expect(await getGrecaptcha()).toMatchInlineSnapshot(`
+    expect(await getGrecaptcha(false)).toMatchInlineSnapshot(`
       {
         "enterprise": {
           "ready": [Function],
@@ -109,7 +109,7 @@ describe("hideGrecaptcha", () => {
     document.getElementsByTagName("head")[0].innerHTML = "";
   });
 
-  test("exec", () => {
+  test("exec", async () => {
     window.grecaptcha = {
       ready: (callback) => callback(),
       enterprise: {
@@ -117,7 +117,7 @@ describe("hideGrecaptcha", () => {
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
-    hideGrecaptcha();
+    await hideGrecaptcha(false);
     expect(
       document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"hidden"');
@@ -129,7 +129,7 @@ describe("showGrecaptcha", () => {
     document.getElementsByTagName("head")[0].innerHTML = "";
   });
 
-  test("exec", () => {
+  test("exec", async () => {
     window.grecaptcha = {
       ready: (callback) => callback(),
       enterprise: {
@@ -137,7 +137,7 @@ describe("showGrecaptcha", () => {
       },
     };
     document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
-    showGrecaptcha();
+    await showGrecaptcha(false);
     expect(
       document.querySelector<HTMLElement>(".grecaptcha-badge")?.style.visibility
     ).toMatchInlineSnapshot('"visible"');

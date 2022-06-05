@@ -43,12 +43,19 @@ export const useGoogleReCaptcha = (
     document.getElementsByTagName("head")[0].appendChild(script);
   }, [options, siteKey]);
 
-  const hideGoogleReCaptcha = useCallback(hideGrecaptcha, []);
-  const showGoogleReCaptcha = useCallback(showGrecaptcha, []);
+  const hideGoogleReCaptcha = useCallback(
+    () => hideGrecaptcha(!!options?.enterprise),
+    [options?.enterprise]
+  );
+
+  const showGoogleReCaptcha = useCallback(
+    () => showGrecaptcha(!!options?.enterprise),
+    [options?.enterprise]
+  );
 
   const executeGoogleReCaptcha = useCallback(
     async (action: string) => {
-      const grecaptcha = await getGrecaptcha(options?.enterprise);
+      const grecaptcha = await getGrecaptcha(!!options?.enterprise);
       return grecaptcha.execute?.(siteKey, { action });
     },
     [options?.enterprise, siteKey]

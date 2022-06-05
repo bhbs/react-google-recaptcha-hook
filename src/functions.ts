@@ -21,7 +21,7 @@ export const initGrecaptcha = () => {
   }
 };
 
-export const getGrecaptcha = (enterprise?: boolean) =>
+export const getGrecaptcha = (enterprise: boolean) =>
   new Promise<ReCaptcha>((resolve) => {
     initGrecaptcha();
     if (enterprise) {
@@ -33,17 +33,17 @@ export const getGrecaptcha = (enterprise?: boolean) =>
     }
   });
 
-export const hideGrecaptcha = () => {
-  initGrecaptcha();
-  window.grecaptcha.ready(() => {
+export const hideGrecaptcha = async (enterprise: boolean) => {
+  const grecaptcha = await getGrecaptcha(enterprise);
+  grecaptcha.ready(() => {
     const badge = document.querySelector<HTMLElement>(".grecaptcha-badge");
     if (badge) badge.style.visibility = "hidden";
   });
 };
 
-export const showGrecaptcha = () => {
-  initGrecaptcha();
-  window.grecaptcha.ready(() => {
+export const showGrecaptcha = async (enterprise: boolean) => {
+  const grecaptcha = await getGrecaptcha(enterprise);
+  grecaptcha.ready(() => {
     const badge = document.querySelector<HTMLElement>(".grecaptcha-badge");
     if (badge) badge.style.visibility = "visible";
   });
