@@ -2,6 +2,14 @@
 
 https://www.google.com/recaptcha/intro/v3.html
 
+## Features
+
+- ⚛ React 18 support
+- ✨ Simple and Easy
+- 🦋 Lightweight
+- 🟢 Zero dependencies
+- ⬇️ Asynchronous APIs
+
 ## Install
 
 ```sh
@@ -13,14 +21,14 @@ npm install react-google-recaptcha-hook
 ```javascript
 import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
 
-const Form = () => {
+const FormComponent = () => {
   const { executeGoogleReCaptcha } = useGoogleReCaptcha(SITE_KEY);
 
-  const submit = useCallback(async () => {
+  const submit = async () => {
     const token = await executeRecaptcha("submit");
 
     // Do whatever you want with the token
-  }, []);
+  };
 
   return <button onClick={submit}>SUBMIT</button>;
 };
