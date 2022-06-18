@@ -30,7 +30,7 @@ const Form = () => {
 
 ```javascript
 const {
-  // execute reCAPTCHA with action, return torken
+  // execute reCAPTCHA with action, return token
   // async (action: string) => Promise<string>
   executeGoogleReCaptcha,
   // hide / show recaptcha-badge
