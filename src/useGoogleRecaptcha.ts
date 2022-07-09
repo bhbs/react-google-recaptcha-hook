@@ -8,10 +8,10 @@ import {
 
 declare global {
   interface Window {
-    grecaptcha: ReCaptcha & {
+    grecaptcha?: ReCaptcha & {
       enterprise: ReCaptcha;
     };
-    ___grecaptcha_cfg: {
+    ___grecaptcha_cfg?: {
       fns: (() => void)[];
     };
   }

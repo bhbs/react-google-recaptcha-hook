@@ -20,8 +20,8 @@ describe("useGoogleReCaptcha", () => {
     cleanup();
   });
   afterEach(() => {
-    delete window.grecaptcha;
-    delete window.___grecaptcha_cfg;
+    window.grecaptcha = undefined;
+    window.___grecaptcha_cfg = undefined;
     document.getElementsByTagName("head")[0].innerHTML = "";
   });
 

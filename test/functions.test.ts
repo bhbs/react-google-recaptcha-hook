@@ -6,7 +6,6 @@ import {
   generateGrecaptchaSrc,
   getGrecaptcha,
   hideGrecaptcha,
-  initGrecaptcha,
   showGrecaptcha,
 } from "../src/functions";
 
@@ -21,17 +20,6 @@ const grecaptchaMock = {
   },
 };
 
-describe("initGrecaptcha", () => {
-  test("create callback queue", () => {
-    initGrecaptcha();
-    expect(window.___grecaptcha_cfg).toMatchInlineSnapshot(`
-      {
-        "fns": [],
-      }
-    `);
-  });
-});
-
 describe("getGrecaptcha", () => {
   afterEach(() => {
     delete window.grecaptcha;
@@ -41,7 +29,8 @@ describe("getGrecaptcha", () => {
   test("return grecaptcha", async () => {
     const grecaptcha = getGrecaptcha(false);
     window.grecaptcha = { ...grecaptchaMock };
-    window.___grecaptcha_cfg.fns.forEach((fn) => fn());
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    window.___grecaptcha_cfg!.fns.forEach((fn) => fn());
     expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "enterprise": {
@@ -71,7 +60,8 @@ describe("getGrecaptcha", () => {
   test("return enterprise version", async () => {
     const grecaptcha = getGrecaptcha(true);
     window.grecaptcha = { ...grecaptchaMock };
-    window.___grecaptcha_cfg.fns.forEach((fn) => fn());
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    window.___grecaptcha_cfg!.fns.forEach((fn) => fn());
     expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "execute": [Function],
