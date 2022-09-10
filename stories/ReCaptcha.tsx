@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { useGoogleReCaptcha } from "../src/index";
 
-export type Props = {
+type Props = {
   siteKey: string;
   hide: boolean;
   language: string;
