@@ -25,7 +25,7 @@ const FormComponent = () => {
   const { executeGoogleReCaptcha } = useGoogleReCaptcha(SITE_KEY);
 
   const submit = async () => {
-    const token = await executeRecaptcha("submit");
+    const token = await executeRecaptcha(ACTION_NAME);
 
     // Do whatever you want with the token
   };
