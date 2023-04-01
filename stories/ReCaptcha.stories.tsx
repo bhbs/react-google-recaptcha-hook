@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { ReCaptcha } from "./ReCaptcha";
 
@@ -36,14 +36,14 @@ const executeGoogleReCaptcha = async ({ canvasElement }) => {
   await canvas.findByText("Successfully loaded!", {}, { timeout: 10000 });
 };
 
-export const Default: Story<typeof ReCaptcha> = {
+export const Default: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
   },
   play: executeGoogleReCaptcha,
 };
 
-export const Hide: Story<typeof ReCaptcha> = {
+export const Hide: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
     hide: true,
@@ -51,7 +51,7 @@ export const Hide: Story<typeof ReCaptcha> = {
   play: executeGoogleReCaptcha,
 };
 
-export const Language: Story<typeof ReCaptcha> = {
+export const Language: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
     language: "ja",
@@ -59,7 +59,7 @@ export const Language: Story<typeof ReCaptcha> = {
   play: executeGoogleReCaptcha,
 };
 
-export const Enterprise: Story<typeof ReCaptcha> = {
+export const Enterprise: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
     siteKey: SITE_TEST_KEY_ENTERPRISE,
@@ -68,7 +68,7 @@ export const Enterprise: Story<typeof ReCaptcha> = {
   play: executeGoogleReCaptcha,
 };
 
-export const RecaptchaNet: Story<typeof ReCaptcha> = {
+export const RecaptchaNet: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
     recaptchaNet: true,
@@ -76,7 +76,7 @@ export const RecaptchaNet: Story<typeof ReCaptcha> = {
   play: executeGoogleReCaptcha,
 };
 
-export const Action: Story<typeof ReCaptcha> = {
+export const Action: StoryObj<typeof ReCaptcha> = {
   args: {
     ...defaultArgs,
     action: "submit_sample_B",
