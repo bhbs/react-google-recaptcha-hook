@@ -27,6 +27,7 @@
   "module": "./dist/react-google-recaptcha-hook.es.js",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/react-google-recaptcha-hook.es.js",
       "require": "./dist/react-google-recaptcha-hook.cjs.js"
     }
