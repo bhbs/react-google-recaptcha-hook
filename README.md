@@ -52,7 +52,7 @@ const {
     language: `${LANGUAGE_CODE}`, // optional, https://developers.google.com/recaptcha/docs/language
     enterprise: `${BOOLEAN}`, // optional, true if you want to use enterprise edition
     recaptchaNet: `${BOOLEAN}`, // optional, true if you want to use recaptcha.net instead of google.com
-  }
+  },
 );
 ```
 

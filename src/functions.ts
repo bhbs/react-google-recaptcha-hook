@@ -14,7 +14,7 @@ export const getGrecaptcha = (enterprise: boolean) =>
         ? resolve(window.grecaptcha.enterprise)
         : window.___grecaptcha_cfg.fns.push(() =>
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            resolve(window.grecaptcha!.enterprise)
+            resolve(window.grecaptcha!.enterprise),
           );
     } else {
       window?.grecaptcha
@@ -22,7 +22,7 @@ export const getGrecaptcha = (enterprise: boolean) =>
         : window.___grecaptcha_cfg.fns.push(() =>
             //
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            resolve(window.grecaptcha!)
+            resolve(window.grecaptcha!),
           );
     }
   });
@@ -30,7 +30,7 @@ export const getGrecaptcha = (enterprise: boolean) =>
 export const executeGrecaptcha = async (
   enterprise: boolean,
   siteKey: string,
-  action: string
+  action: string,
 ) => {
   const grecaptcha = await getGrecaptcha(enterprise);
   return grecaptcha.execute(siteKey, { action });
@@ -58,7 +58,7 @@ export const generateGrecaptchaSrc = (
     language?: string;
     enterprise?: boolean;
     recaptchaNet?: boolean;
-  }
+  },
 ) => {
   const language = options?.language ? `&hl=${options.language}` : "";
   const script = options?.enterprise ? "enterprise.js" : "api.js";

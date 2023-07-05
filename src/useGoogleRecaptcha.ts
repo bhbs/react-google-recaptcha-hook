@@ -29,7 +29,7 @@ export const useGoogleReCaptcha = (
     language?: string;
     enterprise?: boolean;
     recaptchaNet?: boolean;
-  }
+  },
 ) => {
   const load = useCallback(() => {
     if (document.getElementById(siteKey)) return;
@@ -45,18 +45,18 @@ export const useGoogleReCaptcha = (
 
   const hideGoogleReCaptcha = useCallback(
     () => hideGrecaptcha(!!options?.enterprise),
-    [options?.enterprise]
+    [options?.enterprise],
   );
 
   const showGoogleReCaptcha = useCallback(
     () => showGrecaptcha(!!options?.enterprise),
-    [options?.enterprise]
+    [options?.enterprise],
   );
 
   const executeGoogleReCaptcha = useCallback(
     (action: string) =>
       executeGrecaptcha(!!options?.enterprise, siteKey, action),
-    [options?.enterprise, siteKey]
+    [options?.enterprise, siteKey],
   );
 
   const oneTimeRef = useRef(false);
