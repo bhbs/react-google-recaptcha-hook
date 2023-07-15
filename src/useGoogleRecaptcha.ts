@@ -17,10 +17,10 @@ declare global {
   }
 }
 
-export type ReCaptcha = {
+export interface ReCaptcha {
   execute(siteKey: string, options: { action: string }): PromiseLike<string>;
   ready(callback: () => void): void;
-};
+}
 
 export const useGoogleReCaptcha = (
   siteKey: string,
@@ -64,7 +64,7 @@ export const useGoogleReCaptcha = (
     if (oneTimeRef.current) return;
     oneTimeRef.current = true;
 
-    options?.hide && hideGoogleReCaptcha();
+    options?.hide && void hideGoogleReCaptcha();
     load();
   }, [load, hideGoogleReCaptcha, options]);
 

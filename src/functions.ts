@@ -10,20 +10,19 @@ export const getGrecaptcha = (enterprise: boolean) =>
     };
 
     if (enterprise) {
-      window?.grecaptcha?.enterprise
+      window.grecaptcha?.enterprise
         ? resolve(window.grecaptcha.enterprise)
-        : window.___grecaptcha_cfg.fns.push(() =>
+        : window.___grecaptcha_cfg.fns.push(() => {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            resolve(window.grecaptcha!.enterprise),
-          );
+            resolve(window.grecaptcha!.enterprise);
+          });
     } else {
-      window?.grecaptcha
+      window.grecaptcha
         ? resolve(window.grecaptcha)
-        : window.___grecaptcha_cfg.fns.push(() =>
-            //
+        : window.___grecaptcha_cfg.fns.push(() => {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            resolve(window.grecaptcha!),
-          );
+            resolve(window.grecaptcha!);
+          });
     }
   });
 
