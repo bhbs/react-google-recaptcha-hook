@@ -30,9 +30,13 @@ const defaultArgs = {
   action: "submit_sample_A",
 };
 
-const executeGoogleReCaptcha = async ({ canvasElement }) => {
+const executeGoogleReCaptcha = async ({
+  canvasElement,
+}: {
+  canvasElement: HTMLElement;
+}) => {
   const canvas = within(canvasElement);
-  userEvent.click(canvas.getByText("EXECUTE"));
+  await userEvent.click(canvas.getByText("EXECUTE"));
   await canvas.findByText("Successfully loaded!", {}, { timeout: 10000 });
 };
 

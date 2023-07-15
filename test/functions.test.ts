@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 
 import { describe, test, expect, afterEach } from "vitest";
+import { ReCaptcha } from "../src/useGoogleRecaptcha";
 import {
   executeGrecaptcha,
   generateGrecaptchaSrc,
@@ -9,14 +10,21 @@ import {
   showGrecaptcha,
 } from "../src/functions";
 
+const _grecaptchaMock: ReCaptcha = {
+  execute: (siteKey, options) => {
+    return Promise.resolve(
+      `siteKey: ${siteKey}, options: ${JSON.stringify(options)}`,
+    );
+  },
+  ready: (callback) => {
+    callback();
+  },
+};
+
 const grecaptchaMock = {
-  execute: async (siteKey, options) =>
-    `siteKey: ${siteKey}, options: ${options}`,
-  ready: (callback) => callback(),
+  ..._grecaptchaMock,
   enterprise: {
-    execute: async (siteKey, options) =>
-      `siteKey: ${siteKey}, options: ${options}`,
-    ready: (callback) => callback(),
+    ..._grecaptchaMock,
   },
 };
 
@@ -30,7 +38,9 @@ describe("getGrecaptcha", () => {
     const grecaptcha = getGrecaptcha(false);
     window.grecaptcha = { ...grecaptchaMock };
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    window.___grecaptcha_cfg!.fns.forEach((fn) => fn());
+    window.___grecaptcha_cfg!.fns.forEach((fn) => {
+      fn();
+    });
     expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "enterprise": {
@@ -61,7 +71,9 @@ describe("getGrecaptcha", () => {
     const grecaptcha = getGrecaptcha(true);
     window.grecaptcha = { ...grecaptchaMock };
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    window.___grecaptcha_cfg!.fns.forEach((fn) => fn());
+    window.___grecaptcha_cfg!.fns.forEach((fn) => {
+      fn();
+    });
     expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "execute": [Function],
@@ -91,14 +103,18 @@ describe("executeGrecaptcha", () => {
     window.grecaptcha = { ...grecaptchaMock };
     expect(
       await executeGrecaptcha(false, "SITE_KEY", "action"),
-    ).toMatchInlineSnapshot('"siteKey: SITE_KEY, options: [object Object]"');
+    ).toMatchInlineSnapshot(
+      '"siteKey: SITE_KEY, options: {\\"action\\":\\"action\\"}"',
+    );
   });
 
   test("exec", async () => {
     window.grecaptcha = { ...grecaptchaMock };
     expect(
       await executeGrecaptcha(false, "SITE_KEY", "action"),
-    ).toMatchInlineSnapshot('"siteKey: SITE_KEY, options: [object Object]"');
+    ).toMatchInlineSnapshot(
+      '"siteKey: SITE_KEY, options: {\\"action\\":\\"action\\"}"',
+    );
   });
 });
 

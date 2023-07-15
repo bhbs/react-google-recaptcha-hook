@@ -2,16 +2,23 @@
 
 import { describe, test, expect, afterEach } from "vitest";
 import { cleanup, renderHook } from "@testing-library/react";
-import { useGoogleReCaptcha } from "../src/useGoogleRecaptcha";
+import { ReCaptcha, useGoogleReCaptcha } from "../src/useGoogleRecaptcha";
+
+const _grecaptchaMock: ReCaptcha = {
+  execute: (siteKey, options) => {
+    return Promise.resolve(
+      `siteKey: ${siteKey}, options: ${JSON.stringify(options)}`,
+    );
+  },
+  ready: (callback) => {
+    callback();
+  },
+};
 
 const grecaptchaMock = {
-  execute: async (siteKey, options) =>
-    `siteKey: ${siteKey}, options: ${options}`,
-  ready: (callback) => callback(),
+  ..._grecaptchaMock,
   enterprise: {
-    execute: async (siteKey, options) =>
-      `siteKey: ${siteKey}, options: ${options}`,
-    ready: (callback) => callback(),
+    ..._grecaptchaMock,
   },
 };
 
@@ -43,14 +50,14 @@ describe("useGoogleReCaptcha", () => {
     );
   });
 
-  test("execute", async () => {
+  test("execute", () => {
     const { result } = renderHook(() => useGoogleReCaptcha("SITE_KEY"));
     expect(
       result.current.executeGoogleReCaptcha("action"),
     ).toMatchInlineSnapshot("Promise {}");
   });
 
-  test("execute enterprise", async () => {
+  test("execute enterprise", () => {
     const { result } = renderHook(() =>
       useGoogleReCaptcha("SITE_KEY", { enterprise: true }),
     );

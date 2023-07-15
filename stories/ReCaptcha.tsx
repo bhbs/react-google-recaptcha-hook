@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { useGoogleReCaptcha } from "../src/index";
 
-type Props = {
+interface Props {
   siteKey: string;
   hide: boolean;
   language: string;
   enterprise: boolean;
   recaptchaNet: boolean;
   action: string;
-};
+}
 
 export const ReCaptcha = ({
   siteKey,
@@ -28,8 +28,10 @@ export const ReCaptcha = ({
 
   const [token, setToken] = useState("");
 
-  const handleExecute = useCallback(async () => {
-    setToken(await executeGoogleReCaptcha(action));
+  const handleExecute = useCallback(() => {
+    void (async () => {
+      setToken(await executeGoogleReCaptcha(action));
+    })();
   }, [action, executeGoogleReCaptcha]);
 
   const handleReload = useCallback(() => {
@@ -37,11 +39,11 @@ export const ReCaptcha = ({
   }, []);
 
   const handleShow = useCallback(() => {
-    showGoogleReCaptcha();
+    void showGoogleReCaptcha();
   }, [showGoogleReCaptcha]);
 
   const handleHide = useCallback(() => {
-    hideGoogleReCaptcha();
+    void hideGoogleReCaptcha();
   }, [hideGoogleReCaptcha]);
 
   return (
