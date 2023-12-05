@@ -104,7 +104,7 @@ describe("executeGrecaptcha", () => {
     expect(
       await executeGrecaptcha(false, "SITE_KEY", "action"),
     ).toMatchInlineSnapshot(
-      '"siteKey: SITE_KEY, options: {\\"action\\":\\"action\\"}"',
+      `"siteKey: SITE_KEY, options: {"action":"action"}"`,
     );
   });
 
@@ -113,7 +113,7 @@ describe("executeGrecaptcha", () => {
     expect(
       await executeGrecaptcha(false, "SITE_KEY", "action"),
     ).toMatchInlineSnapshot(
-      '"siteKey: SITE_KEY, options: {\\"action\\":\\"action\\"}"',
+      `"siteKey: SITE_KEY, options: {"action":"action"}"`,
     );
   });
 });
