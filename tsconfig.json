@@ -17,8 +17,8 @@
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "types"
+    "declarationDir": "types",
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
 }
