@@ -44,8 +44,7 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint src --fix --ignore-path .gitignore",
     "fix:prettier": "prettier . --write --ignore-path .gitignore",
-    "storybook": "storybook dev",
-    "prepare": "husky install"
+    "storybook": "storybook dev"
   },
   "peerDependencies": {
     "react": ">=16.13.1",
@@ -70,7 +69,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "happy-dom": "^13.2.0",
-    "husky": "^8.0.3",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
