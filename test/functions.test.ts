@@ -1,47 +1,49 @@
 // @vitest-environment happy-dom
 
-import { describe, test, expect, afterEach } from "vitest";
-import { ReCaptcha } from "../src/useGoogleRecaptcha";
+import { afterEach, describe, expect, test } from "vitest";
 import {
-  executeGrecaptcha,
-  generateGrecaptchaSrc,
-  getGrecaptcha,
-  hideGrecaptcha,
-  showGrecaptcha,
+	executeGrecaptcha,
+	generateGrecaptchaSrc,
+	getGrecaptcha,
+	hideGrecaptcha,
+	showGrecaptcha,
 } from "../src/functions";
+import type { ReCaptcha } from "../src/useGoogleRecaptcha";
 
 const _grecaptchaMock: ReCaptcha = {
-  execute: (siteKey, options) => {
-    return Promise.resolve(
-      `siteKey: ${siteKey}, options: ${JSON.stringify(options)}`,
-    );
-  },
-  ready: (callback) => {
-    callback();
-  },
+	execute: (siteKey, options) => {
+		return Promise.resolve(
+			`siteKey: ${siteKey}, options: ${JSON.stringify(options)}`,
+		);
+	},
+	ready: (callback) => {
+		callback();
+	},
 };
 
 const grecaptchaMock = {
-  ..._grecaptchaMock,
-  enterprise: {
-    ..._grecaptchaMock,
-  },
+	..._grecaptchaMock,
+	enterprise: {
+		..._grecaptchaMock,
+	},
 };
 
 describe("getGrecaptcha", () => {
-  afterEach(() => {
-    delete window.grecaptcha;
-    delete window.___grecaptcha_cfg;
-  });
+	afterEach(() => {
+		// biome-ignore lint/performance/noDelete:
+		delete window.grecaptcha;
+		// biome-ignore lint/performance/noDelete:
+		delete window.___grecaptcha_cfg;
+	});
 
-  test("return grecaptcha", async () => {
-    const grecaptcha = getGrecaptcha(false);
-    window.grecaptcha = { ...grecaptchaMock };
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    window.___grecaptcha_cfg!.fns.forEach((fn) => {
-      fn();
-    });
-    expect(await grecaptcha).toMatchInlineSnapshot(`
+	test("return grecaptcha", async () => {
+		const grecaptcha = getGrecaptcha(false);
+		window.grecaptcha = { ...grecaptchaMock };
+		// biome-ignore lint/style/noNonNullAssertion:
+		for (const fn of window.___grecaptcha_cfg!.fns) {
+			fn();
+		}
+		expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "enterprise": {
           "execute": [Function],
@@ -51,11 +53,11 @@ describe("getGrecaptcha", () => {
         "ready": [Function],
       }
     `);
-  });
+	});
 
-  test("return grecaptcha", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    expect(await getGrecaptcha(false)).toMatchInlineSnapshot(`
+	test("return grecaptcha", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		expect(await getGrecaptcha(false)).toMatchInlineSnapshot(`
       {
         "enterprise": {
           "execute": [Function],
@@ -65,104 +67,106 @@ describe("getGrecaptcha", () => {
         "ready": [Function],
       }
     `);
-  });
+	});
 
-  test("return enterprise version", async () => {
-    const grecaptcha = getGrecaptcha(true);
-    window.grecaptcha = { ...grecaptchaMock };
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    window.___grecaptcha_cfg!.fns.forEach((fn) => {
-      fn();
-    });
-    expect(await grecaptcha).toMatchInlineSnapshot(`
+	test("return enterprise version", async () => {
+		const grecaptcha = getGrecaptcha(true);
+		window.grecaptcha = { ...grecaptchaMock };
+		// biome-ignore lint/style/noNonNullAssertion: <explanation>
+		for (const fn of window.___grecaptcha_cfg!.fns) {
+			fn();
+		}
+		expect(await grecaptcha).toMatchInlineSnapshot(`
       {
         "execute": [Function],
         "ready": [Function],
       }
     `);
-  });
+	});
 
-  test("return enterprise version", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    expect(await getGrecaptcha(true)).toMatchInlineSnapshot(`
+	test("return enterprise version", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		expect(await getGrecaptcha(true)).toMatchInlineSnapshot(`
       {
         "execute": [Function],
         "ready": [Function],
       }
     `);
-  });
+	});
 });
 
 describe("executeGrecaptcha", () => {
-  afterEach(() => {
-    delete window.grecaptcha;
-    delete window.___grecaptcha_cfg;
-  });
+	afterEach(() => {
+		// biome-ignore lint/performance/noDelete:
+		delete window.grecaptcha;
+		// biome-ignore lint/performance/noDelete:
+		delete window.___grecaptcha_cfg;
+	});
 
-  test("exec", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    expect(
-      await executeGrecaptcha(false, "SITE_KEY", "action"),
-    ).toMatchInlineSnapshot(
-      `"siteKey: SITE_KEY, options: {"action":"action"}"`,
-    );
-  });
+	test("exec", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		expect(
+			await executeGrecaptcha(false, "SITE_KEY", "action"),
+		).toMatchInlineSnapshot(
+			`"siteKey: SITE_KEY, options: {"action":"action"}"`,
+		);
+	});
 
-  test("exec", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    expect(
-      await executeGrecaptcha(false, "SITE_KEY", "action"),
-    ).toMatchInlineSnapshot(
-      `"siteKey: SITE_KEY, options: {"action":"action"}"`,
-    );
-  });
+	test("exec", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		expect(
+			await executeGrecaptcha(false, "SITE_KEY", "action"),
+		).toMatchInlineSnapshot(
+			`"siteKey: SITE_KEY, options: {"action":"action"}"`,
+		);
+	});
 });
 
 describe("hideGrecaptcha", () => {
-  afterEach(() => {
-    document.getElementsByTagName("head")[0].innerHTML = "";
-  });
+	afterEach(() => {
+		document.getElementsByTagName("head")[0].innerHTML = "";
+	});
 
-  test("exec", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
-    await hideGrecaptcha(false);
-    expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style
-        .visibility,
-    ).toMatchInlineSnapshot('"hidden"');
-  });
+	test("exec", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+		await hideGrecaptcha(false);
+		expect(
+			document.querySelector<HTMLElement>(".grecaptcha-badge")?.style
+				.visibility,
+		).toMatchInlineSnapshot('"hidden"');
+	});
 });
 
 describe("showGrecaptcha", () => {
-  afterEach(() => {
-    document.getElementsByTagName("head")[0].innerHTML = "";
-  });
+	afterEach(() => {
+		document.getElementsByTagName("head")[0].innerHTML = "";
+	});
 
-  test("exec", async () => {
-    window.grecaptcha = { ...grecaptchaMock };
-    document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
-    await showGrecaptcha(false);
-    expect(
-      document.querySelector<HTMLElement>(".grecaptcha-badge")?.style
-        .visibility,
-    ).toMatchInlineSnapshot('"visible"');
-  });
+	test("exec", async () => {
+		window.grecaptcha = { ...grecaptchaMock };
+		document.body.innerHTML = '<div class="grecaptcha-badge"></div>';
+		await showGrecaptcha(false);
+		expect(
+			document.querySelector<HTMLElement>(".grecaptcha-badge")?.style
+				.visibility,
+		).toMatchInlineSnapshot('"visible"');
+	});
 });
 
 describe("generateGrecaptchaSrc", () => {
-  test("cerate src", () => {
-    expect(generateGrecaptchaSrc("SITE_KEY")).toMatchInlineSnapshot(
-      '"https://www.google.com/recaptcha/api.js?render=SITE_KEY"',
-    );
-    expect(
-      generateGrecaptchaSrc("SITE_KEY", {
-        language: "LANGUAGE",
-        enterprise: true,
-        recaptchaNet: true,
-      }),
-    ).toMatchInlineSnapshot(
-      '"https://www.recaptcha.net/recaptcha/enterprise.js?render=SITE_KEY&hl=LANGUAGE"',
-    );
-  });
+	test("cerate src", () => {
+		expect(generateGrecaptchaSrc("SITE_KEY")).toMatchInlineSnapshot(
+			'"https://www.google.com/recaptcha/api.js?render=SITE_KEY"',
+		);
+		expect(
+			generateGrecaptchaSrc("SITE_KEY", {
+				language: "LANGUAGE",
+				enterprise: true,
+				recaptchaNet: true,
+			}),
+		).toMatchInlineSnapshot(
+			'"https://www.recaptcha.net/recaptcha/enterprise.js?render=SITE_KEY&hl=LANGUAGE"',
+		);
+	});
 });
