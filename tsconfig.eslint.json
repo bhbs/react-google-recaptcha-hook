@@ -1,6 +1,6 @@
 {
-  "compilerOptions": {
-    "strict": true
-  },
-  "include": ["src", "test", "stories"]
+	"compilerOptions": {
+		"strict": true
+	},
+	"include": ["src", "test", "stories"]
 }
