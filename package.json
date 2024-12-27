@@ -53,7 +53,7 @@
 		"@types/react-dom": "^18.3.0",
 		"@vitest/coverage-v8": "^2.0.1",
 		"cspell": "^8.8.4",
-		"happy-dom": "^15.0.0",
+		"happy-dom": "^16.0.1",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"storybook": "^8.1.5",
