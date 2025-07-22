@@ -9,12 +9,20 @@
 	"bugs": {
 		"url": "https://github.com/bhbs/react-google-recaptcha-hook/issues"
 	},
-	"keywords": ["react", "react18", "hooks", "recaptcha"],
+	"keywords": [
+		"react",
+		"react18",
+		"hooks",
+		"recaptcha"
+	],
 	"author": "bhbs <bhbstar.me@gmail.com>",
 	"license": "MIT",
 	"version": "1.1.1",
 	"type": "module",
-	"files": ["dist", "types"],
+	"files": [
+		"dist",
+		"types"
+	],
 	"types": "./types/index.d.ts",
 	"main": "./dist/react-google-recaptcha-hook.cjs.js",
 	"module": "./dist/react-google-recaptcha-hook.es.js",
@@ -41,24 +49,21 @@
 		"react-dom": ">=16.13.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@storybook/addon-essentials": "^8.5.2",
-		"@storybook/addon-interactions": "^8.5.2",
-		"@storybook/react": "^8.5.2",
-		"@storybook/react-vite": "^8.5.2",
-		"@storybook/test": "^8.5.2",
-		"@testing-library/react": "^16.2.0",
-		"@types/node": "^22.12.0",
-		"@types/react": "^19.0.8",
-		"@types/react-dom": "^19.0.3",
-		"@vitest/coverage-v8": "^3.0.4",
-		"cspell": "^8.17.3",
-		"happy-dom": "^16.0.1",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"storybook": "^8.5.2",
-		"typescript": "^5.7.3",
-		"vite": "^6.0.11",
-		"vitest": "^3.0.4"
+		"@biomejs/biome": "2.1.2",
+		"@storybook/react": "^9.0.18",
+		"@storybook/react-vite": "^9.0.18",
+		"@testing-library/react": "^16.3.0",
+		"@types/node": "^24.1.0",
+		"@types/react": "^19.1.8",
+		"@types/react-dom": "^19.1.6",
+		"@vitest/coverage-v8": "^3.2.4",
+		"cspell": "^9.2.0",
+		"happy-dom": "^18.0.1",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"storybook": "^9.0.18",
+		"typescript": "^5.8.3",
+		"vite": "^7.0.5",
+		"vitest": "^3.2.4"
 	}
 }

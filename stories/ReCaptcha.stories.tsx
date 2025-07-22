@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
-import React from "react";
+import { userEvent, within } from "storybook/test";
 import { ReCaptcha } from "./ReCaptcha";
 
 const SITE_TEST_KEY = "6Lf6QWsbAAAAAO6x_yOJaYBChDGuLyMD_qNxlQJe";
@@ -14,9 +13,7 @@ export default {
 			document.getElementById(SITE_TEST_KEY)?.remove();
 			document.getElementById(SITE_TEST_KEY_ENTERPRISE)?.remove();
 			document.querySelector<HTMLElement>(".grecaptcha-badge")?.remove();
-			// biome-ignore lint/performance/noDelete:
 			delete window.grecaptcha;
-			// biome-ignore lint/performance/noDelete:
 			delete window.___grecaptcha_cfg;
 			return <Story />;
 		},
