@@ -30,16 +30,14 @@ const grecaptchaMock = {
 
 describe("getGrecaptcha", () => {
 	afterEach(() => {
-		// biome-ignore lint/performance/noDelete:
 		delete window.grecaptcha;
-		// biome-ignore lint/performance/noDelete:
 		delete window.___grecaptcha_cfg;
 	});
 
 	test("return grecaptcha", async () => {
 		const grecaptcha = getGrecaptcha(false);
 		window.grecaptcha = { ...grecaptchaMock };
-		// biome-ignore lint/style/noNonNullAssertion:
+		// biome-ignore lint/style/noNonNullAssertion: __grecaptcha_cfg is set in the test
 		for (const fn of window.___grecaptcha_cfg!.fns) {
 			fn();
 		}
@@ -72,7 +70,7 @@ describe("getGrecaptcha", () => {
 	test("return enterprise version", async () => {
 		const grecaptcha = getGrecaptcha(true);
 		window.grecaptcha = { ...grecaptchaMock };
-		// biome-ignore lint/style/noNonNullAssertion: <explanation>
+		// biome-ignore lint/style/noNonNullAssertion: ___grecaptcha_cfg is set in the test
 		for (const fn of window.___grecaptcha_cfg!.fns) {
 			fn();
 		}
@@ -97,9 +95,7 @@ describe("getGrecaptcha", () => {
 
 describe("executeGrecaptcha", () => {
 	afterEach(() => {
-		// biome-ignore lint/performance/noDelete:
 		delete window.grecaptcha;
-		// biome-ignore lint/performance/noDelete:
 		delete window.___grecaptcha_cfg;
 	});
 

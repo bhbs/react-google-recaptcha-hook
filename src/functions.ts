@@ -13,14 +13,14 @@ export const getGrecaptcha = (enterprise: boolean) =>
 			window.grecaptcha?.enterprise
 				? resolve(window.grecaptcha.enterprise)
 				: window.___grecaptcha_cfg.fns.push(() => {
-						// biome-ignore lint/style/noNonNullAssertion:
+						// biome-ignore lint/style/noNonNullAssertion: grecaptcha is set in the test
 						resolve(window.grecaptcha!.enterprise);
 					});
 		} else {
 			window.grecaptcha
 				? resolve(window.grecaptcha)
 				: window.___grecaptcha_cfg.fns.push(() => {
-						// biome-ignore lint/style/noNonNullAssertion:
+						// biome-ignore lint/style/noNonNullAssertion: grecaptcha is set in the test
 						resolve(window.grecaptcha!);
 					});
 		}
