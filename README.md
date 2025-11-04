@@ -4,7 +4,7 @@ https://www.google.com/recaptcha/intro/v3.html
 
 ## Features
 
-- ⚛ React 18 support
+- ⚛ React 19 support
 - ✨ Simple and Easy
 - 🦋 Lightweight
 - 🟢 Zero dependencies
