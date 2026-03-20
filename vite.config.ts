@@ -1,16 +1,17 @@
-import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig } from "vite-plus";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	build: {
-		lib: {
-			entry: resolve(__dirname, "src/index.ts"),
-			formats: ["cjs", "es"],
-			fileName: (format) => `react-google-recaptcha-hook.${format}.js`,
-		},
-		rollupOptions: {
-			external: ["react"],
-		},
-	},
+  lint: { options: { typeAware: true, typeCheck: true } },
+  fmt: {},
+  build: {
+    lib: {
+      entry: "src/index.ts",
+      formats: ["cjs", "es"],
+      fileName: "react-google-recaptcha-hook",
+    },
+    rolldownOptions: {
+      external: ["react"],
+    },
+  },
 });

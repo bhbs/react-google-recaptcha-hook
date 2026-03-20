@@ -1,70 +1,68 @@
 {
-	"name": "react-google-recaptcha-hook",
-	"description": "React Hook for Google reCAPTCHA v3",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/bhbs/react-google-recaptcha-hook.git"
-	},
-	"homepage": "https://github.com/bhbs/react-google-recaptcha-hook",
-	"bugs": {
-		"url": "https://github.com/bhbs/react-google-recaptcha-hook/issues"
-	},
-	"keywords": [
-		"react",
-		"react18",
-		"react19",
-		"hooks",
-		"recaptcha"
-	],
-	"author": "bhbs <bhbstar.me@gmail.com>",
-	"license": "MIT",
-	"version": "1.1.3",
-	"type": "module",
-	"files": [
-		"dist",
-		"types"
-	],
-	"types": "./types/index.d.ts",
-	"main": "./dist/react-google-recaptcha-hook.cjs.js",
-	"module": "./dist/react-google-recaptcha-hook.es.js",
-	"exports": {
-		".": {
-			"types": "./types/index.d.ts",
-			"import": "./dist/react-google-recaptcha-hook.es.js",
-			"require": "./dist/react-google-recaptcha-hook.cjs.js"
-		}
-	},
-	"scripts": {
-		"build": "tsc && vite build",
-		"test": "vitest",
-		"coverage": "vitest run --coverage",
-		"lint": "npm run lint:cspell && npm run lint:biome",
-		"lint:cspell": "cspell --gitignore '**'",
-		"lint:biome": "biome ci",
-		"fix": "npm run fix:biome",
-		"fix:biome": "biome check --write",
-		"storybook": "storybook dev"
-	},
-	"peerDependencies": {
-		"react": ">=16.13.1",
-		"react-dom": ">=16.13.1"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.4.8",
-		"@storybook/react": "^10.3.1",
-		"@storybook/react-vite": "^10.3.1",
-		"@testing-library/react": "^16.3.2",
-		"@types/node": "^25.5.0",
-		"@types/react": "^19.2.14",
-		"@types/react-dom": "^19.2.3",
-		"@vitest/coverage-v8": "^4.1.0",
-		"cspell": "^9.7.0",
-		"happy-dom": "^20.8.4",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
-		"storybook": "^10.3.1",
-		"typescript": "^5.9.3",
-		"vite": "^8.0.1",
-		"vitest": "^4.1.0"
-	}
+  "name": "react-google-recaptcha-hook",
+  "version": "1.1.3",
+  "description": "React Hook for Google reCAPTCHA v3",
+  "keywords": [
+    "hooks",
+    "react",
+    "react18",
+    "react19",
+    "recaptcha"
+  ],
+  "homepage": "https://github.com/bhbs/react-google-recaptcha-hook",
+  "bugs": {
+    "url": "https://github.com/bhbs/react-google-recaptcha-hook/issues"
+  },
+  "license": "MIT",
+  "author": "bhbs <bhbstar.me@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhbs/react-google-recaptcha-hook.git"
+  },
+  "files": [
+    "dist",
+    "types"
+  ],
+  "type": "module",
+  "main": "./dist/react-google-recaptcha-hook.cjs",
+  "module": "./dist/react-google-recaptcha-hook.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/react-google-recaptcha-hook.js",
+      "require": "./dist/react-google-recaptcha-hook.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vp build",
+    "test": "vp test",
+    "coverage": "vp test run --coverage",
+    "check": "vp check",
+    "fix": "vp check --fix",
+    "cspell": "cspell --gitignore '**'",
+    "storybook": "storybook dev"
+  },
+  "devDependencies": {
+    "@storybook/react": "^10.3.1",
+    "@storybook/react-vite": "^10.3.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.0",
+    "cspell": "^9.7.0",
+    "happy-dom": "^20.8.4",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "storybook": "^10.3.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "vite-plus": "^0.1.12",
+    "vitest": "^4.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
+  }
 }
