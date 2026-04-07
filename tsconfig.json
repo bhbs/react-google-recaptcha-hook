@@ -9,14 +9,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "types"
+    "declarationDir": "types",
+    "rootDir": "src"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
