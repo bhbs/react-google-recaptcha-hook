@@ -4,6 +4,16 @@ import { defineConfig } from "vite-plus";
 export default defineConfig({
   lint: { options: { typeAware: true, typeCheck: true } },
   fmt: {},
+  test: {
+    environmentOptions: {
+      happyDOM: {
+        settings: {
+          disableJavaScriptFileLoading: true,
+          handleDisabledFileLoadingAsSuccess: true,
+        },
+      },
+    },
+  },
   build: {
     lib: {
       entry: "src/index.ts",

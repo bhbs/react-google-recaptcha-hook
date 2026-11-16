@@ -11,6 +11,11 @@ To setup:
 npm ci
 ```
 
+Keep `vitest` and `@vitest/coverage-v8` aligned with the Vitest version bundled
+with Vite+.
+Vite+ stays on 0.2.x to match Storybook 10's optional peer dependency range
+without a Storybook-specific override. Verify the Storybook build when upgrading.
+
 ## 🧪 Develop
 
 To test:
