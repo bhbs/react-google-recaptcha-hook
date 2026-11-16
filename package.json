@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "build": "vp build",
+    "build": "tsc && vp build",
     "test": "vp test",
     "coverage": "vp test run --coverage",
     "check": "vp check",

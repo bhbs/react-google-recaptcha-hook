@@ -4,7 +4,7 @@ import {
   generateGrecaptchaSrc,
   hideGrecaptcha,
   showGrecaptcha,
-} from "./functions";
+} from "./functions.js";
 
 declare global {
   interface Window {

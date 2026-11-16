@@ -1,3 +1,3 @@
-import { useGoogleReCaptcha } from "./useGoogleRecaptcha";
+import { useGoogleReCaptcha } from "./useGoogleRecaptcha.js";
 
 export { useGoogleReCaptcha };
