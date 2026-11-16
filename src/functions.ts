@@ -1,4 +1,4 @@
-import type { ReCaptcha } from "./useGoogleRecaptcha";
+import type { ReCaptcha } from "./useGoogleRecaptcha.js";
 
 export const getGrecaptcha = (enterprise: boolean) =>
   new Promise<ReCaptcha>((resolve) => {
